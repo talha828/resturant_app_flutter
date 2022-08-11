@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
+import 'package:restaurant_app_flutter/main_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     clockStatus=clockStatus=="Clock In"?"Clock Out":"Clock In";
     var date =DateFormat('yyyy/MM/dd').format(DateTime.now());
     var time=formatedTime(TimeOfDay.now());
-    _timeString= clockStatus=="Clock In"?"$date $time":"Not Clock In";
+    _timeString= clockStatus=="Clock In"?"Not Clock In":"$date $time";
     setState(() {});
   }
   @override
@@ -85,7 +86,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             WelcomeScreenButton(text:clockStatus,onTap: ()=>setClock()),
             WelcomeScreenButton(text:"Access Register",onTap: (){},),
             SizedBox(height: 1,),
-            WelcomeScreenButton(text:"Exit",onTap: (){},),
+            WelcomeScreenButton(text:"Exit",onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen())),),
           ],
         ),
       ),
