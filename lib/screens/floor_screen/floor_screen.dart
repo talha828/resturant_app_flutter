@@ -29,8 +29,8 @@ class _FloorScreenState extends State<FloorScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
-                      onTap:(){
-                        Navigator.pop(context);
+                      onTap:(){                                    Navigator.of(context)..pop()..pop();
+
                       },
                       child: Text("Back",style: TextStyle(color: Colors.red,),)),
                   Expanded(child: Container(child: Center(child: Text("Table",style: TextStyle(color: Colors.red,fontSize: width * 0.026),)))),
@@ -55,7 +55,7 @@ class _FloorScreenState extends State<FloorScreen> {
                               children:List.generate(8, (index) {
                                 return InkWell(
                                   onTap: () {
-                                    Navigator.pop(context);
+                                    Navigator.of(context)..pop()..pop();
                                   },
                                   child: Container(
                                     margin: EdgeInsets.symmetric(
