@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/common_widget/welcome_button.dart';
@@ -32,9 +33,9 @@ class _MainScreenState extends State<MainScreen> {
     "Premium casual",
     "Family style",
     "Fine dining",
-  "Wild Salmon Burgers"
+    "Wild Salmon Burgers"
   ];
-  List<String>burger=[
+  List<String> burger = [
     "Back",
     "Beef Burgers.",
     "Elk Burgers",
@@ -42,44 +43,76 @@ class _MainScreenState extends State<MainScreen> {
     "Turkey Burgers.",
     "Veggie Burgers.",
   ];
-  List<String> topList=["Printer","Kitchen","Void","Discount","Tags","Home"];
-  List<Icon>top=[Icon(Icons.print,
-    color: Colors.white,
-    size: width * 0.025,),
-    Icon(Icons.kitchen,
+  List<String> topList = [
+    "Printer",
+    "Kitchen",
+    "Void",
+    "Discount",
+    "Tags",
+    "Home"
+  ];
+  List<Icon> top = [
+    Icon(
+      Icons.print,
       color: Colors.white,
-      size: width * 0.025,),
-    Icon(Icons.cancel_outlined,
+      size: width * 0.025,
+    ),
+    Icon(
+      Icons.kitchen,
       color: Colors.white,
-      size: width * 0.025,),
-    Icon(Icons.disc_full_outlined,
+      size: width * 0.025,
+    ),
+    Icon(
+      Icons.cancel_outlined,
       color: Colors.white,
-      size: width * 0.025,),
-    Icon(Icons.more,
+      size: width * 0.025,
+    ),
+    Icon(
+      Icons.disc_full_outlined,
       color: Colors.white,
-      size: width * 0.025,),
-    Icon(Icons.more_horiz_outlined,
+      size: width * 0.025,
+    ),
+    Icon(
+      Icons.more,
       color: Colors.white,
-      size: width * 0.025,),];
-  List bottomLable=[
+      size: width * 0.025,
+    ),
+    Icon(
+      Icons.more_horiz_outlined,
+      color: Colors.white,
+      size: width * 0.025,
+    ),
+  ];
+  List bottomLable = [
     "Home",
     "Order",
     "Table",
     "New",
   ];
-  List<Icon>icon=[
-    Icon(Icons.home,
+  List<Icon> icon = [
+    Icon(
+      Icons.home,
       color: Colors.red,
-      size: width * 0.02,),
-    Icon(Icons.message,  color: Colors.red,
-      size: width * 0.02,),
-    Icon(Icons.table_chart_outlined , color: Colors.red,
-      size: width * 0.02,),
-    Icon(Icons.add,  color: Colors.red,
-      size: width * 0.02,),
+      size: width * 0.02,
+    ),
+    Icon(
+      Icons.message,
+      color: Colors.red,
+      size: width * 0.02,
+    ),
+    Icon(
+      Icons.table_chart_outlined,
+      color: Colors.red,
+      size: width * 0.02,
+    ),
+    Icon(
+      Icons.add,
+      color: Colors.red,
+      size: width * 0.02,
+    ),
   ];
-  List<BottomButtonModel>dd=[];
-  List<BottomButtonModel>ddd=[];
+  List<BottomButtonModel> dd = [];
+  List<BottomButtonModel> ddd = [];
   @override
   void initState() {
     for (int i = 0; i < 10; i++) {
@@ -88,11 +121,11 @@ class _MainScreenState extends State<MainScreen> {
         name: name[i],
       ));
     }
-    for(int i=0;i<4;i++){
-      dd.add(BottomButtonModel(icon: icon[i],label: bottomLable[i]));
+    for (int i = 0; i < 4; i++) {
+      dd.add(BottomButtonModel(icon: icon[i], label: bottomLable[i]));
     }
-    for(int i=0;i<top.length;i++){
-      ddd.add(BottomButtonModel(icon: top[i],label: topList[i]));
+    for (int i = 0; i < top.length; i++) {
+      ddd.add(BottomButtonModel(icon: top[i], label: topList[i]));
     }
     for (int i = 0; i < 5; i++) {
       item.add(Items(
@@ -121,7 +154,8 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: width * 0.02,vertical: width * 0.01),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: width * 0.01, vertical: width * 0.01),
                       width: width * 0.245,
                       height: width * 0.08,
                       color: Colors.white.withOpacity(0.7),
@@ -129,17 +163,34 @@ class _MainScreenState extends State<MainScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("1",style: TextStyle(color: Colors.red),),
-                              Text("Active",),
+                              Text(
+                                "1",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              Text(
+                                "Active",
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Dien In (F1 T7)",style: TextStyle(color: Colors.red,fontSize: width * 0.015),),
-                              Text("Add Customer",style: TextStyle(fontSize: width * 0.015,color: Colors.red),),
+                              Text(
+                                "Dien In (F1 T7)",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: width * 0.015,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                "Add Customer",
+                                style: TextStyle(
+                                    fontSize: width * 0.015,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ],
                           ),
                         ],
@@ -154,11 +205,64 @@ class _MainScreenState extends State<MainScreen> {
                           Row(
                             children: [
                               Container(
-                                color:Colors.red,
-                                child:SizedBox(width: width * 0.005,
-                                  height:  width * 0.03,) ,
+                                color: Colors.red,
+                                child: SizedBox(
+                                  width: width * 0.005,
+                                  height: width * 0.03,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: width * 0.01,
+                                  ),
+                                  Text(
+                                    "1",
+                                    style: TextStyle(fontSize: width * 0.017),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.01,
+                                  ),
+                                  Text(
+                                    "X",
+                                    style: TextStyle(fontSize: width * 0.017),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.01,
+                                  ),
+                                  Container(
+                                      width: width * 0.09,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                              child: Text(
+                                            "Beef Burger",
+                                            style: TextStyle(
+                                                fontSize: width * 0.017),
+                                          )),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    width: width * 0.009,
+                                  ),
+                                  Text(
+                                    "SAR 45.00",
+                                    style: TextStyle(fontSize: width * 0.017),
+                                  ),
+                                ],
                               )
                             ],
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: width * 0.01,
+                                horizontal: width * 0.01),
+                            color: Colors.grey.shade200,
+                            child: Row(
+                              children: [
+                                Text("Add Coures"),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -167,7 +271,54 @@ class _MainScreenState extends State<MainScreen> {
                       width: width * 0.245,
                       height: width * 0.08,
                       color: Colors.white.withOpacity(0.7),
-                      child: Column(),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: width * 0.01,
+                                vertical: width * 0.01),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Total",
+                                  style: TextStyle(fontSize: width * 0.017),
+                                ),
+                                Text(
+                                  "SRA 5.78",
+                                  style: TextStyle(fontSize: width * 0.017),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              color: Colors.red,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.01,
+                                  vertical: width * 0.001),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total",
+                                    style: TextStyle(
+                                        fontSize: width * 0.02,
+                                        color: Colors.white),
+                                  ),
+                                  Text(
+                                    "SRA 5.78",
+                                    style: TextStyle(
+                                        fontSize: width * 0.02,
+                                        color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -181,47 +332,46 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         //TODO top list of after order (kitchen,print,etc)
                         GridView.count(
-                          crossAxisCount: 6,
-                          shrinkWrap: true,
-                          childAspectRatio: 1.5,
-                          children:List.generate(ddd.length, (index) {
-                            return InkWell(
-                              onTap: () {
-                                setState(() {
-                                  isCategory = false;
-                                });
-                              },
-                              child: Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: width * 0.01,
-                                    horizontal: width * 0.01),
-                                width: width * 0.13,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: width * 0.0131),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    ddd[index].icon,
-                                    FittedBox(
-                                      child: Text(
-                                        ddd[index].label,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w100,
-                                            color: Colors.white,
-                                            fontSize: width * 0.018),
+                            crossAxisCount: 6,
+                            shrinkWrap: true,
+                            childAspectRatio: 1.5,
+                            children: List.generate(ddd.length, (index) {
+                              return InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isCategory = false;
+                                  });
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: width * 0.01,
+                                      horizontal: width * 0.01),
+                                  width: width * 0.13,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: width * 0.0131),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ddd[index].icon,
+                                      FittedBox(
+                                        child: Text(
+                                          ddd[index].label,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              color: Colors.white,
+                                              fontSize: width * 0.018),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          })
-                        ),
+                              );
+                            })),
                         SizedBox(
                           height: width * 0.01,
                         ),
@@ -304,15 +454,17 @@ class _MainScreenState extends State<MainScreen> {
                                   return InkWell(
                                     onTap: () {
                                       setState(() {
-                                        if(index == 0){
-                                         isCategory = true;
-                                        }else if(isTill){
+                                        if (index == 0) {
+                                          isCategory = true;
+                                        } else if (isTill) {
                                           setState(() {
-                                            isTill=false;
+                                            isTill = false;
                                           });
-                                        orderType(context);
-                                        }else{
-                                          setState(() {isTill=true;});
+                                          orderType(context);
+                                        } else {
+                                          setState(() {
+                                            isTill = true;
+                                          });
                                           openTill(context);
                                         }
                                       });
@@ -348,8 +500,8 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ],
                     ),
-                      //:TODO  list of bottom button
-                      //: TODO add button functionality
+                    //:TODO  list of bottom button
+                    //: TODO add button functionality
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -376,7 +528,7 @@ class _MainScreenState extends State<MainScreen> {
                                 itemCount: dd.length,
                                 itemBuilder: (context, index) {
                                   return InkWell(
-                                    onTap: (){},
+                                    onTap: () {},
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: width * 0.02),
@@ -420,8 +572,8 @@ class _MainScreenState extends State<MainScreen> {
       pageBuilder: (_, __, ___) {
         return Center(
           child: Container(
-            height: width *0.18,
-            width: width * 0.35 ,
+            height: width * 0.18,
+            width: width * 0.35,
             child: Scaffold(
               backgroundColor: Colors.transparent,
               body: ClipRRect(
@@ -430,24 +582,41 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: width * 00.02,),
-                      Text("till is not open",textAlign: TextAlign.center,),
-                      Text("would you like to open till?",textAlign: TextAlign.center,),
+                      SizedBox(
+                        height: width * 00.02,
+                      ),
+                      Text(
+                        "till is not open",
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "would you like to open till?",
+                        textAlign: TextAlign.center,
+                      ),
                       Divider(),
                       InkWell(
-                          onTap: ()=>Navigator.pop(context),
-                          child: Text("No",style: TextStyle(color: Colors.red),textAlign: TextAlign.center,)),
+                          onTap: () => Navigator.pop(context),
+                          child: Text(
+                            "No",
+                            style: TextStyle(color: Colors.red),
+                            textAlign: TextAlign.center,
+                          )),
                       Divider(),
                       InkWell(
-                        onTap: ()=>enterTill(context),
-                          child: Text("Open till",style: TextStyle(color: Colors.red),textAlign: TextAlign.center,)),
-
-                    ],),
+                          onTap: () => enterTill(context),
+                          child: Text(
+                            "Open till",
+                            style: TextStyle(color: Colors.red),
+                            textAlign: TextAlign.center,
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ),
             margin: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(30)),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(30)),
           ),
         );
       },
@@ -481,8 +650,8 @@ class _MainScreenState extends State<MainScreen> {
       pageBuilder: (_, __, ___) {
         return Center(
           child: Container(
-            height: width *0.18,
-            width: width * 0.35 ,
+            height: width * 0.18,
+            width: width * 0.35,
             child: Scaffold(
               backgroundColor: Colors.transparent,
               body: ClipRRect(
@@ -491,23 +660,43 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: width * 00.02,),
-                      Text("Order Type",textAlign: TextAlign.center,),
+                      SizedBox(
+                        height: width * 00.02,
+                      ),
+                      Text(
+                        "Order Type",
+                        textAlign: TextAlign.center,
+                      ),
                       Divider(),
                       InkWell(
-                          onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>FloorScreen())),
-                          child: Text("Dine In",style: TextStyle(color: Colors.red),textAlign: TextAlign.center,)),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FloorScreen())),
+                          child: Text(
+                            "Dine In",
+                            style: TextStyle(color: Colors.red),
+                            textAlign: TextAlign.center,
+                          )),
                       Divider(),
                       InkWell(
-                          onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>FloorScreen())),
-                          child: Text("Pick Up",style: TextStyle(color: Colors.red),textAlign: TextAlign.center,)),
-
-                    ],),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FloorScreen())),
+                          child: Text(
+                            "Pick Up",
+                            style: TextStyle(color: Colors.red),
+                            textAlign: TextAlign.center,
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ),
             margin: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(30)),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(30)),
           ),
         );
       },
@@ -532,7 +721,6 @@ class _MainScreenState extends State<MainScreen> {
 
   //TODO till Enter Till prices
   void enterTill(BuildContext context) {
-
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -570,18 +758,15 @@ class EnterTill extends StatefulWidget {
 }
 
 class _EnterTillState extends State<EnterTill> {
-
-
-
   @override
   Widget build(BuildContext context) {
-    var till =Provider.of<InputManagerModel>(context);
-    TextEditingController controller=TextEditingController(text: till.till);
+    var till = Provider.of<InputManagerModel>(context);
+    TextEditingController controller = TextEditingController(text: till.till);
     return Center(
       child: SingleChildScrollView(
         child: Container(
-          height: width *0.45,
-          width: width * 0.35 ,
+          height: width * 0.45,
+          width: width * 0.35,
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: ClipRRect(
@@ -592,59 +777,93 @@ class _EnterTillState extends State<EnterTill> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: width * 0.02,),
-                    Text("Enter Till Amount",textAlign: TextAlign.center,),
-                    SizedBox(height: width * 0.02,),
+                    SizedBox(
+                      height: width * 0.02,
+                    ),
+                    Text(
+                      "Enter Till Amount",
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: width * 0.02,
+                    ),
                     Container(
                         color: Colors.white,
                         child: TextField(
                           textAlign: TextAlign.center,
                           controller: controller,
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.02),
                               enabledBorder: InputBorder.none,
-                              border:InputBorder.none,
-                              focusedBorder: InputBorder.none
-                          ),
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none),
                         )),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 0),
-                      margin: EdgeInsets.symmetric(horizontal: width *0.02),
-                      child: GridView.count(crossAxisCount: 3,
+                      margin: EdgeInsets.symmetric(horizontal: width * 0.02),
+                      child: GridView.count(
+                        crossAxisCount: 3,
                         shrinkWrap: true,
                         childAspectRatio: 1.97,
-                        children: List.generate(12, (index)=>InkWell(
-                          onTap: (){
-                            Provider.of<InputManagerModel>(context,listen: false).addTill(index>8?index==9?"C":(index-1).toString():index.toString());
-                          },
-                          child: Container(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(vertical: width * 0.008,horizontal: width *0.008),
-                              color: Colors.white,
-                              padding: EdgeInsets.symmetric(vertical: width * 0.002,horizontal: width *0.002),
-                              child: Center(child: Text(index>8?index==9?"C":(index-1).toString():index.toString())),
-                            ),
-                          ),
-                        )),
+                        children: List.generate(
+                            12,
+                            (index) => InkWell(
+                                  onTap: () {
+                                    Provider.of<InputManagerModel>(context,
+                                            listen: false)
+                                        .addTill(index > 8
+                                            ? index == 9
+                                                ? "C"
+                                                : (index - 1).toString()
+                                            : index.toString());
+                                  },
+                                  child: Container(
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: width * 0.008,
+                                          horizontal: width * 0.008),
+                                      color: Colors.white,
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: width * 0.002,
+                                          horizontal: width * 0.002),
+                                      child: Center(
+                                          child: Text(index > 8
+                                              ? index == 9
+                                                  ? "C"
+                                                  : (index - 1).toString()
+                                              : index.toString())),
+                                    ),
+                                  ),
+                                )),
                       ),
                     ),
-                    SizedBox(height: width *0.01,),
+                    SizedBox(
+                      height: width * 0.01,
+                    ),
                     InkWell(
-                      onTap: ()=>Navigator.of(context)..pop()..pop(),
+                      onTap: () => Navigator.of(context)..pop()..pop(),
                       child: Container(
                         height: width * 0.05,
                         color: Colors.white,
-                        margin: EdgeInsets.symmetric(horizontal: width *0.03),
-                        child: Center(child: Text("Done",textAlign: TextAlign.center,)),
+                        margin: EdgeInsets.symmetric(horizontal: width * 0.03),
+                        child: Center(
+                            child: Text(
+                          "Done",
+                          textAlign: TextAlign.center,
+                        )),
                       ),
                     ),
                     //SizedBox(height: width *0.01,)
-                  ],),
+                  ],
+                ),
               ),
             ),
           ),
           margin: EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(width * 0.02)),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(width * 0.02)),
         ),
       ),
     );
