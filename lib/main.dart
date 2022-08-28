@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
+import 'package:restaurant_app_flutter/model/input_manager_model.dart';
 import 'package:restaurant_app_flutter/screens/login_screen/login_screen.dart';
 import 'package:restaurant_app_flutter/screens/main_screen/main_screen.dart';
 import 'package:restaurant_app_flutter/screens/welcome_screen/welcome_screen.dart';
@@ -21,14 +23,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white.withOpacity(0.9),
-        textTheme: GoogleFonts.latoTextTheme(
-          Theme.of(context).textTheme,
+    return MultiProvider(
+       providers: [
+         ChangeNotifierProvider<InputManagerModel>(create:(_)=> InputManagerModel())
+       ],
+      child: MaterialApp(
+        theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white.withOpacity(0.9),
+          textTheme: GoogleFonts.latoTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
+        home:SplashScreen()
       ),
-      home:SplashScreen()
     );
   }
 }

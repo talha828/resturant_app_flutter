@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/common_widget/welcome_button.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
+import 'package:restaurant_app_flutter/model/bottom_button_model.dart';
 import 'package:restaurant_app_flutter/model/category_model.dart';
+import 'package:restaurant_app_flutter/model/input_manager_model.dart';
 import 'package:restaurant_app_flutter/model/items_model.dart';
 import 'package:restaurant_app_flutter/screens/floor_screen/floor_screen.dart';
 
@@ -39,7 +42,44 @@ class _MainScreenState extends State<MainScreen> {
     "Turkey Burgers.",
     "Veggie Burgers.",
   ];
-
+  List<String> topList=["Printer","Kitchen","Void","Discount","Tags","Home"];
+  List<Icon>top=[Icon(Icons.print,
+    color: Colors.white,
+    size: width * 0.025,),
+    Icon(Icons.kitchen,
+      color: Colors.white,
+      size: width * 0.025,),
+    Icon(Icons.cancel_outlined,
+      color: Colors.white,
+      size: width * 0.025,),
+    Icon(Icons.disc_full_outlined,
+      color: Colors.white,
+      size: width * 0.025,),
+    Icon(Icons.more,
+      color: Colors.white,
+      size: width * 0.025,),
+    Icon(Icons.more_horiz_outlined,
+      color: Colors.white,
+      size: width * 0.025,),];
+  List bottomLable=[
+    "Home",
+    "Order",
+    "Table",
+    "New",
+  ];
+  List<Icon>icon=[
+    Icon(Icons.home,
+      color: Colors.red,
+      size: width * 0.02,),
+    Icon(Icons.message,  color: Colors.red,
+      size: width * 0.02,),
+    Icon(Icons.table_chart_outlined , color: Colors.red,
+      size: width * 0.02,),
+    Icon(Icons.add,  color: Colors.red,
+      size: width * 0.02,),
+  ];
+  List<BottomButtonModel>dd=[];
+  List<BottomButtonModel>ddd=[];
   @override
   void initState() {
     for (int i = 0; i < 10; i++) {
@@ -47,6 +87,12 @@ class _MainScreenState extends State<MainScreen> {
         icon: FontAwesomeIcons.egg,
         name: name[i],
       ));
+    }
+    for(int i=0;i<4;i++){
+      dd.add(BottomButtonModel(icon: icon[i],label: bottomLable[i]));
+    }
+    for(int i=0;i<top.length;i++){
+      ddd.add(BottomButtonModel(icon: top[i],label: topList[i]));
     }
     for (int i = 0; i < 5; i++) {
       item.add(Items(
@@ -75,16 +121,47 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   children: [
                     Container(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.02,vertical: width * 0.01),
                       width: width * 0.245,
                       height: width * 0.08,
                       color: Colors.white.withOpacity(0.7),
-                      child: Column(),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("1",style: TextStyle(color: Colors.red),),
+                              Text("Active",),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Dien In (F1 T7)",style: TextStyle(color: Colors.red,fontSize: width * 0.015),),
+                              Text("Add Customer",style: TextStyle(fontSize: width * 0.015,color: Colors.red),),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     Container(
                       width: width * 0.245,
                       height: width * 0.25,
                       color: Colors.white,
-                      child: Column(),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                color:Colors.red,
+                                child:SizedBox(width: width * 0.005,
+                                  height:  width * 0.03,) ,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                     Container(
                       width: width * 0.245,
@@ -102,11 +179,12 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Column(
                       children: [
+                        //TODO top list of after order (kitchen,print,etc)
                         GridView.count(
-                          crossAxisCount: 5,
+                          crossAxisCount: 6,
                           shrinkWrap: true,
                           childAspectRatio: 1.5,
-                          children:List.generate(5, (index) {
+                          children:List.generate(ddd.length, (index) {
                             return InkWell(
                               onTap: () {
                                 setState(() {
@@ -128,14 +206,10 @@ class _MainScreenState extends State<MainScreen> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    FaIcon(
-                                      category[index].icon,
-                                      color: Colors.white,
-                                      size: width * 0.025,
-                                    ),
+                                    ddd[index].icon,
                                     FittedBox(
                                       child: Text(
-                                        category[index].name,
+                                        ddd[index].label,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w100,
                                             color: Colors.white,
@@ -157,6 +231,7 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.white,
                             height: width * 0.05,
                             //width: width * 0.13,
+                            //TODO search bar disable do nothing
                             child: TextField(
                               enabled: false,
                               scrollPadding: EdgeInsets.symmetric(vertical: 0),
@@ -177,6 +252,7 @@ class _MainScreenState extends State<MainScreen> {
                         SizedBox(
                           height: width * 0.01,
                         ),
+                        //TODO list of category
                         GridView.count(
                           crossAxisCount: 5,
                           shrinkWrap: true,
@@ -223,6 +299,7 @@ class _MainScreenState extends State<MainScreen> {
                                     ),
                                   );
                                 })
+                              //TODO : second list of item depend on category
                               : List.generate(item.length, (index) {
                                   return InkWell(
                                     onTap: () {
@@ -230,6 +307,9 @@ class _MainScreenState extends State<MainScreen> {
                                         if(index == 0){
                                          isCategory = true;
                                         }else if(isTill){
+                                          setState(() {
+                                            isTill=false;
+                                          });
                                         orderType(context);
                                         }else{
                                           setState(() {isTill=true;});
@@ -268,6 +348,8 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       ],
                     ),
+                      //:TODO  list of bottom button
+                      //: TODO add button functionality
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -291,31 +373,30 @@ class _MainScreenState extends State<MainScreen> {
                                 },
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 4,
+                                itemCount: dd.length,
                                 itemBuilder: (context, index) {
-                                  return Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: width * 0.02),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.extension,
-                                          color: Colors.red,
-                                          size: width * 0.02,
-                                        ),
-                                        SizedBox(
-                                          width: width * 0.01,
-                                        ),
-                                        Text("Fooz Zone"),
-                                      ],
+                                  return InkWell(
+                                    onTap: (){},
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: width * 0.02),
+                                      child: Row(
+                                        children: [
+                                          dd[index].icon,
+                                          SizedBox(
+                                            width: width * 0.01,
+                                          ),
+                                          Text(dd[index].label),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }),
                           ),
                         ),
-                        SizedBox(
-                          height: width * 0.018,
-                        ),
+                        // SizedBox(
+                        //   height: width * 0.018,
+                        // ),
                       ],
                     )
                   ],
@@ -327,6 +408,8 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
+  //TODO alert about till? (true,false)
   void openTill(BuildContext context) {
     showGeneralDialog(
       context: context,
@@ -386,6 +469,8 @@ class _MainScreenState extends State<MainScreen> {
       },
     );
   }
+
+  //TODO order types (DineIn, recive)
   void orderType(BuildContext context) {
     showGeneralDialog(
       context: context,
@@ -444,8 +529,10 @@ class _MainScreenState extends State<MainScreen> {
       },
     );
   }
+
+  //TODO till Enter Till prices
   void enterTill(BuildContext context) {
-    TextEditingController controller=TextEditingController(text: "00.0");
+
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -453,83 +540,7 @@ class _MainScreenState extends State<MainScreen> {
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: Duration(milliseconds: 700),
       pageBuilder: (_, __, ___) {
-
-        return Center(
-          child: SingleChildScrollView(
-            child: Container(
-              height: width *0.45,
-              width: width * 0.35 ,
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: ClipRRect(
-                  borderRadius: BorderRadius.circular(width * 0.02),
-                  child: Container(
-                    color: Color(0xffdddfe9),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(height: width * 0.02,),
-                        Text("Enter Till Amount",textAlign: TextAlign.center,),
-                        SizedBox(height: width * 0.02,),
-                        Container(
-                            color: Colors.white,
-                            child: TextField(
-                              textAlign: TextAlign.center,
-                              controller: controller,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(horizontal: width * 0.02),
-                                enabledBorder: InputBorder.none,
-                                border:InputBorder.none,
-                                focusedBorder: InputBorder.none
-                              ),
-                            )),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 0),
-                          margin: EdgeInsets.symmetric(horizontal: width *0.02),
-                          child: GridView.count(crossAxisCount: 3,
-                            shrinkWrap: true,
-                          childAspectRatio: 1.97,
-                          children: List.generate(12, (index)=>InkWell(
-                            onTap: (){
-
-                              //TODO Use Provider here for update value
-                                  if(controller.text=="00.0"){
-                                    controller=TextEditingController(text: index.toString());
-                                    setState(() {});
-                                  }
-                            },
-                            child: Container(
-                              child: Container(
-                                margin: EdgeInsets.symmetric(vertical: width * 0.008,horizontal: width *0.008),
-                                color: Colors.white,
-                                padding: EdgeInsets.symmetric(vertical: width * 0.002,horizontal: width *0.002),
-                                child: Center(child: Text(index>8?index==9?"C":(index-1).toString():index.toString())),
-                              ),
-                            ),
-                          )),
-                          ),
-                        ),
-                        SizedBox(height: width *0.01,),
-                        InkWell(
-                          onTap: ()=>Navigator.of(context)..pop()..pop(),
-                          child: Container(
-                            height: width * 0.05,
-                            color: Colors.white,
-                            margin: EdgeInsets.symmetric(horizontal: width *0.03),
-                            child: Center(child: Text("Done",textAlign: TextAlign.center,)),
-                          ),
-                        ),
-                        //SizedBox(height: width *0.01,)
-                      ],),
-                  ),
-                ),
-              ),
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(width * 0.02)),
-            ),
-          ),
-        );
+        return EnterTill();
       },
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;
@@ -550,34 +561,92 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-// class DialogUtils {
-//   static DialogUtils _instance = new DialogUtils.internal();
-//
-//   DialogUtils.internal();
-//
-//   factory DialogUtils() => _instance;
-//
-//   static void showCustomDialog(BuildContext context,
-//       {@required String title,
-//         String okBtnText = "Ok",
-//         String cancelBtnText = "Cancel",
-//         @required Function okBtnFunction}) {
-//     showDialog(
-//         context: context,
-//         builder: (_) {
-//           return AlertDialog(
-//             title: Text(title),
-//             content: Container(),
-//             actions: <Widget>[
-//               FlatButton(
-//                 child: Text(okBtnText),
-//                 onPressed: okBtnFunction,
-//               ),
-//               FlatButton(
-//                   child: Text(cancelBtnText),
-//                   onPressed: () => Navigator.pop(context))
-//             ],
-//           );
-//         });
-//   }
-// }
+
+class EnterTill extends StatefulWidget {
+  const EnterTill({Key key}) : super(key: key);
+
+  @override
+  State<EnterTill> createState() => _EnterTillState();
+}
+
+class _EnterTillState extends State<EnterTill> {
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    var till =Provider.of<InputManagerModel>(context);
+    TextEditingController controller=TextEditingController(text: till.till);
+    return Center(
+      child: SingleChildScrollView(
+        child: Container(
+          height: width *0.45,
+          width: width * 0.35 ,
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: ClipRRect(
+              borderRadius: BorderRadius.circular(width * 0.02),
+              child: Container(
+                color: Color(0xffdddfe9),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: width * 0.02,),
+                    Text("Enter Till Amount",textAlign: TextAlign.center,),
+                    SizedBox(height: width * 0.02,),
+                    Container(
+                        color: Colors.white,
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          controller: controller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                              enabledBorder: InputBorder.none,
+                              border:InputBorder.none,
+                              focusedBorder: InputBorder.none
+                          ),
+                        )),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 0),
+                      margin: EdgeInsets.symmetric(horizontal: width *0.02),
+                      child: GridView.count(crossAxisCount: 3,
+                        shrinkWrap: true,
+                        childAspectRatio: 1.97,
+                        children: List.generate(12, (index)=>InkWell(
+                          onTap: (){
+                            Provider.of<InputManagerModel>(context,listen: false).addTill(index>8?index==9?"C":(index-1).toString():index.toString());
+                          },
+                          child: Container(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(vertical: width * 0.008,horizontal: width *0.008),
+                              color: Colors.white,
+                              padding: EdgeInsets.symmetric(vertical: width * 0.002,horizontal: width *0.002),
+                              child: Center(child: Text(index>8?index==9?"C":(index-1).toString():index.toString())),
+                            ),
+                          ),
+                        )),
+                      ),
+                    ),
+                    SizedBox(height: width *0.01,),
+                    InkWell(
+                      onTap: ()=>Navigator.of(context)..pop()..pop(),
+                      child: Container(
+                        height: width * 0.05,
+                        color: Colors.white,
+                        margin: EdgeInsets.symmetric(horizontal: width *0.03),
+                        child: Center(child: Text("Done",textAlign: TextAlign.center,)),
+                      ),
+                    ),
+                    //SizedBox(height: width *0.01,)
+                  ],),
+              ),
+            ),
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(width * 0.02)),
+        ),
+      ),
+    );
+  }
+}
