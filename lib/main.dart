@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
+import 'package:restaurant_app_flutter/model/categories_model.dart';
 import 'package:restaurant_app_flutter/model/input_manager_model.dart';
 import 'package:restaurant_app_flutter/screens/login_screen/login_screen.dart';
 import 'package:restaurant_app_flutter/screens/main_screen/main_screen.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
        providers: [
-         ChangeNotifierProvider<InputManagerModel>(create:(_)=> InputManagerModel())
+         ChangeNotifierProvider<InputManagerModel>(create:(_)=> InputManagerModel()),
+         ChangeNotifierProvider<FoodList>(create:(_)=> FoodList()),
        ],
       child: MaterialApp(
         theme: ThemeData(
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home:SplashScreen()
+        home:MainScreen()
       ),
     );
   }

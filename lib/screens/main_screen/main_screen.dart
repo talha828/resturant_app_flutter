@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/common_widget/welcome_button.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
 import 'package:restaurant_app_flutter/model/bottom_button_model.dart';
+import 'package:restaurant_app_flutter/model/categories_model.dart';
 import 'package:restaurant_app_flutter/model/category_model.dart';
 import 'package:restaurant_app_flutter/model/input_manager_model.dart';
 import 'package:restaurant_app_flutter/model/items_model.dart';
@@ -23,6 +24,32 @@ class _MainScreenState extends State<MainScreen> {
 
   bool isCategory = true;
   bool isTill = false;
+  Map<String,dynamic>product={
+    "results":[
+      {
+      "name":"Water",
+      "item":[
+        {"name":"water1","prices":"Rs 45"},
+        {"name":"water2","prices":"Rs 4"},
+        {"name":"water3","prices":"Rs 258"},
+        {"name":"water4","prices":"Rs 55"},
+        {"name":"water5","prices":"Rs 523"},
+        {"name":"water6","prices":"Rs 41"},
+      ]
+    },
+      {
+        "name":"Desert",
+        "item":[
+          {"name":"Desert2","prices":"Rs 225"},
+          {"name":"water2","prices":"Rs 21"},
+          {"name":"water3","prices":"Rs 5"},
+          {"name":"water4","prices":"Rs 42"},
+          {"name":"water5","prices":"Rs 10"},
+          {"name":"water6","prices":"Rs 46"},
+        ]
+      }
+    ]
+  };
   List<String> name = [
     "Water",
     "Desert",
@@ -121,6 +148,7 @@ class _MainScreenState extends State<MainScreen> {
         name: name[i],
       ));
     }
+    FoodList.fromFood(product['results']);
     for (int i = 0; i < 4; i++) {
       dd.add(BottomButtonModel(icon: icon[i], label: bottomLable[i]));
     }
