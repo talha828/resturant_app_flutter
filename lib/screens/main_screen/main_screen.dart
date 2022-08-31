@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/common_widget/welcome_button.dart';
+import 'package:restaurant_app_flutter/getx_model/product_model.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
-import 'package:restaurant_app_flutter/model/bottom_button_model.dart';
-import 'package:restaurant_app_flutter/model/categories_model.dart';
-import 'package:restaurant_app_flutter/model/category_model.dart';
-import 'package:restaurant_app_flutter/model/input_manager_model.dart';
-import 'package:restaurant_app_flutter/model/items_model.dart';
+import 'package:restaurant_app_flutter/provider_model/bottom_button_model.dart';
+import 'package:restaurant_app_flutter/provider_model/category_model.dart';
+import 'package:restaurant_app_flutter/provider_model/input_manager_model.dart';
+import 'package:restaurant_app_flutter/provider_model/items_model.dart';
 import 'package:restaurant_app_flutter/screens/floor_screen/floor_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -24,32 +25,7 @@ class _MainScreenState extends State<MainScreen> {
 
   bool isCategory = true;
   bool isTill = false;
-  Map<String,dynamic>product={
-    "results":[
-      {
-      "name":"Water",
-      "item":[
-        {"name":"water1","prices":"Rs 45"},
-        {"name":"water2","prices":"Rs 4"},
-        {"name":"water3","prices":"Rs 258"},
-        {"name":"water4","prices":"Rs 55"},
-        {"name":"water5","prices":"Rs 523"},
-        {"name":"water6","prices":"Rs 41"},
-      ]
-    },
-      {
-        "name":"Desert",
-        "item":[
-          {"name":"Desert2","prices":"Rs 225"},
-          {"name":"water2","prices":"Rs 21"},
-          {"name":"water3","prices":"Rs 5"},
-          {"name":"water4","prices":"Rs 42"},
-          {"name":"water5","prices":"Rs 10"},
-          {"name":"water6","prices":"Rs 46"},
-        ]
-      }
-    ]
-  };
+
   List<String> name = [
     "Water",
     "Desert",
@@ -78,37 +54,13 @@ class _MainScreenState extends State<MainScreen> {
     "Tags",
     "Home"
   ];
-  List<Icon> top = [
-    Icon(
-      Icons.print,
-      color: Colors.white,
-      size: width * 0.025,
-    ),
-    Icon(
-      Icons.kitchen,
-      color: Colors.white,
-      size: width * 0.025,
-    ),
-    Icon(
-      Icons.cancel_outlined,
-      color: Colors.white,
-      size: width * 0.025,
-    ),
-    Icon(
-      Icons.disc_full_outlined,
-      color: Colors.white,
-      size: width * 0.025,
-    ),
-    Icon(
-      Icons.more,
-      color: Colors.white,
-      size: width * 0.025,
-    ),
-    Icon(
-      Icons.more_horiz_outlined,
-      color: Colors.white,
-      size: width * 0.025,
-    ),
+  List<IconData> top = [
+    Icons.print,
+    Icons.kitchen,
+    Icons.cancel_outlined,
+    Icons.disc_full_outlined,
+    Icons.more,
+    Icons.more_horiz_outlined,
   ];
   List bottomLable = [
     "Home",
@@ -116,6 +68,7 @@ class _MainScreenState extends State<MainScreen> {
     "Table",
     "New",
   ];
+  final product = Get.put(Product());
   List<Icon> icon = [
     Icon(
       Icons.home,
@@ -139,7 +92,8 @@ class _MainScreenState extends State<MainScreen> {
     ),
   ];
   List<BottomButtonModel> dd = [];
-  List<BottomButtonModel> ddd = [];
+  List<TopButtonModel> ddd = [];
+
   @override
   void initState() {
     for (int i = 0; i < 10; i++) {
@@ -148,12 +102,11 @@ class _MainScreenState extends State<MainScreen> {
         name: name[i],
       ));
     }
-    FoodList.fromFood(product['results']);
     for (int i = 0; i < 4; i++) {
       dd.add(BottomButtonModel(icon: icon[i], label: bottomLable[i]));
     }
     for (int i = 0; i < top.length; i++) {
-      ddd.add(BottomButtonModel(icon: top[i], label: topList[i]));
+      ddd.add(TopButtonModel(icon: top[i], label: topList[i]));
     }
     for (int i = 0; i < 5; i++) {
       item.add(Items(
@@ -167,8 +120,14 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white.withOpacity(0.9),
@@ -264,10 +223,10 @@ class _MainScreenState extends State<MainScreen> {
                                         children: [
                                           Expanded(
                                               child: Text(
-                                            "Beef Burger",
-                                            style: TextStyle(
-                                                fontSize: width * 0.017),
-                                          )),
+                                                "Beef Burger",
+                                                style: TextStyle(
+                                                    fontSize: width * 0.017),
+                                              )),
                                         ],
                                       )),
                                   SizedBox(
@@ -327,7 +286,7 @@ class _MainScreenState extends State<MainScreen> {
                                   vertical: width * 0.001),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Total",
@@ -383,18 +342,21 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      ddd[index].icon,
-                                      FittedBox(
-                                        child: Text(
-                                          ddd[index].label,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w100,
-                                              color: Colors.white,
-                                              fontSize: width * 0.018),
-                                        ),
+                                      FaIcon(
+                                        ddd[index].icon,
+                                        color: Colors.white,
+                                        size: width * 0.025,
                                       ),
+                                      Text(
+                                        ddd[index].label,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w100,
+                                            color: Colors.white,
+                                            fontSize: width * 0.017),
+                                      )
+
                                     ],
                                   ),
                                 ),
@@ -431,100 +393,108 @@ class _MainScreenState extends State<MainScreen> {
                           height: width * 0.01,
                         ),
                         //TODO list of category
-                        GridView.count(
-                          crossAxisCount: 5,
-                          shrinkWrap: true,
-                          childAspectRatio: 1.5,
-                          children: isCategory
-                              ? List.generate(category.length, (index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        isCategory = false;
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: width * 0.01,
-                                          horizontal: width * 0.01),
-                                      width: width * 0.13,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: width * 0.0131),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          FaIcon(
-                                            category[index].icon,
-                                            color: Colors.red,
-                                            size: width * 0.025,
-                                          ),
-                                          FittedBox(
-                                            child: Text(
-                                              category[index].name,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w100,
-                                                  color: Colors.black,
-                                                  fontSize: width * 0.018),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                        GetX<Product>(
+                          init: Product(),
+                          builder: (controller) {
+                            return GridView.count(
+                              crossAxisCount: 5,
+                              shrinkWrap: true,
+                              childAspectRatio: 1.5,
+                              children:controller.isCategory.value ==false
+                                  ? List.generate(controller.category.length, (index) {
+                                return InkWell(
+                                  onTap: () {
+                                    controller.isCategory.value=true;
+                                      controller.index.value=index;
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: width * 0.01,
+                                        horizontal: width * 0.01),
+                                    width: width * 0.13,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.0131),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
-                                  );
-                                })
-                              //TODO : second list of item depend on category
-                              : List.generate(item.length, (index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        if (index == 0) {
-                                          isCategory = true;
-                                        } else if (isTill) {
-                                          setState(() {
-                                            isTill = false;
-                                          });
-                                          orderType(context);
-                                        } else {
-                                          setState(() {
-                                            isTill = true;
-                                          });
-                                          openTill(context);
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: width * 0.01,
-                                          horizontal: width * 0.01),
-                                      width: width * 0.13,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: width * 0.0131),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(width * 0.01),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            item[index].name,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        FaIcon(
+                                          Icons.align_horizontal_center_rounded,
+                                          color: Colors.red,
+                                          size: width * 0.025,
+                                        ),
+                                        FittedBox(
+                                          child: Text(
+                                            controller.category[index].name,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w100,
                                                 color: Colors.black,
                                                 fontSize: width * 0.018),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  );
-                                }),
+                                  ),
+                                );
+                              })
+                              //TODO : second list of item depend on category
+                                  : List.generate(controller.category[controller.index.value].item.length+1, (index) {
+                                return InkWell(
+                                  onTap: () {
+                                      if (index == 0) {
+                                        controller.isCategory.value=false;
+                                      }else if(controller.isTill.value){
+                                        orderType(context);
+                                      }else{
+                                        openTill(context);
+                                      }
+                                      // } else if (isTill) {
+                                      //   setState(() {
+                                      //     isTill = false;
+                                      //   });
+                                      //   orderType(context);
+                                      // } else {
+                                      //   setState(() {
+                                      //     isTill = true;
+                                      //   });
+                                      //   openTill(context);
+                                      // }
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: width * 0.01,
+                                        horizontal: width * 0.01),
+                                    width: width * 0.13,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.0131),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                      BorderRadius.circular(width * 0.01),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          index==0?"back":
+                                          controller.category[controller.index.value].item[index-1].name,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              color: Colors.black,
+                                              fontSize: width * 0.018),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -540,7 +510,7 @@ class _MainScreenState extends State<MainScreen> {
                           borderRadius: BorderRadius.circular(width * 0.005),
                           child: Container(
                             padding:
-                                EdgeInsets.symmetric(vertical: width * 0.01),
+                            EdgeInsets.symmetric(vertical: width * 0.01),
                             width: width * 0.13,
                             alignment: Alignment.center,
                             color: Colors.white,
@@ -623,7 +593,9 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       Divider(),
                       InkWell(
-                          onTap: () => Navigator.pop(context),
+                          onTap: () {
+                            product.isTill.value=true;
+                            Navigator.pop(context);},
                           child: Text(
                             "No",
                             style: TextStyle(color: Colors.red),
@@ -697,10 +669,9 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       Divider(),
                       InkWell(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FloorScreen())),
+                          onTap: () {
+                            product.orderType.value="Dine In";
+                              Get.to(FloorScreen());},
                           child: Text(
                             "Dine In",
                             style: TextStyle(color: Colors.red),
@@ -708,10 +679,9 @@ class _MainScreenState extends State<MainScreen> {
                           )),
                       Divider(),
                       InkWell(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FloorScreen())),
+                          onTap: () {
+                            product.orderType.value="Pick Up";
+                            Get.to(FloorScreen());},
                           child: Text(
                             "Pick Up",
                             style: TextStyle(color: Colors.red),
@@ -779,7 +749,7 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class EnterTill extends StatefulWidget {
-  const EnterTill({Key key}) : super(key: key);
+
 
   @override
   State<EnterTill> createState() => _EnterTillState();
@@ -787,9 +757,11 @@ class EnterTill extends StatefulWidget {
 
 class _EnterTillState extends State<EnterTill> {
   @override
+  var product=Get.find<Product>();
   Widget build(BuildContext context) {
     var till = Provider.of<InputManagerModel>(context);
     TextEditingController controller = TextEditingController(text: till.till);
+
     return Center(
       child: SingleChildScrollView(
         child: Container(
@@ -836,15 +808,16 @@ class _EnterTillState extends State<EnterTill> {
                         childAspectRatio: 1.97,
                         children: List.generate(
                             12,
-                            (index) => InkWell(
+                                (index) =>
+                                InkWell(
                                   onTap: () {
                                     Provider.of<InputManagerModel>(context,
-                                            listen: false)
+                                        listen: false)
                                         .addTill(index > 8
-                                            ? index == 9
-                                                ? "C"
-                                                : (index - 1).toString()
-                                            : index.toString());
+                                        ? index == 9
+                                        ? "C"
+                                        : (index - 1).toString()
+                                        : index.toString());
                                   },
                                   child: Container(
                                     child: Container(
@@ -858,8 +831,8 @@ class _EnterTillState extends State<EnterTill> {
                                       child: Center(
                                           child: Text(index > 8
                                               ? index == 9
-                                                  ? "C"
-                                                  : (index - 1).toString()
+                                              ? "C"
+                                              : (index - 1).toString()
                                               : index.toString())),
                                     ),
                                   ),
@@ -870,16 +843,19 @@ class _EnterTillState extends State<EnterTill> {
                       height: width * 0.01,
                     ),
                     InkWell(
-                      onTap: () => Navigator.of(context)..pop()..pop(),
+                      onTap: () {
+                        product.isTill.value=true;
+                      Navigator.of(context)
+                        ..pop()..pop();},
                       child: Container(
                         height: width * 0.05,
                         color: Colors.white,
                         margin: EdgeInsets.symmetric(horizontal: width * 0.03),
                         child: Center(
                             child: Text(
-                          "Done",
-                          textAlign: TextAlign.center,
-                        )),
+                              "Done",
+                              textAlign: TextAlign.center,
+                            )),
                       ),
                     ),
                     //SizedBox(height: width *0.01,)

@@ -1,20 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-class FoodList extends ChangeNotifier{
-  FoodList();
-  List<CategoryModel>category=[];
-  FoodList.fromFood(var value){
-    for(var i in value){
-      category.add(CategoryModel.fromJson(i));
-    }
-    notifyListeners();
-  }
-}
 
 class CategoryModel{
   String name;
-  List<SubItemModel>item;
-
+  List<SubItemModel>item=[];
   CategoryModel.fromJson(Map<String,dynamic>json){
     name=json['name'];
     if(json['item']!=null){
@@ -27,10 +16,9 @@ class CategoryModel{
 }
 
 
-class SubItemModel{
+class SubItemModel  {
   String name;
   String prices;
-
   SubItemModel.fromJson(Map<String,dynamic>json){
     name=json['name'];
     prices=json['prices'];

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
-import 'package:restaurant_app_flutter/model/category_model.dart';
-import 'package:restaurant_app_flutter/model/input_manager_model.dart';
+import 'package:restaurant_app_flutter/provider_model/input_manager_model.dart';
 
 class FloorScreen extends StatefulWidget {
 

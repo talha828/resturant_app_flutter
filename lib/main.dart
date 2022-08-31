@@ -1,21 +1,20 @@
 import 'dart:async';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_flutter/globle_variable.dart';
-import 'package:restaurant_app_flutter/model/categories_model.dart';
-import 'package:restaurant_app_flutter/model/input_manager_model.dart';
+import 'package:restaurant_app_flutter/provider_model/categories_model.dart';
+import 'package:restaurant_app_flutter/provider_model/input_manager_model.dart';
 import 'package:restaurant_app_flutter/screens/login_screen/login_screen.dart';
 import 'package:restaurant_app_flutter/screens/main_screen/main_screen.dart';
-import 'package:restaurant_app_flutter/screens/welcome_screen/welcome_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft
+    DeviceOrientation.landscapeLeft,
   ]).then((_) => runApp(MyApp()));
 
 }
@@ -27,9 +26,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
        providers: [
          ChangeNotifierProvider<InputManagerModel>(create:(_)=> InputManagerModel()),
-         ChangeNotifierProvider<FoodList>(create:(_)=> FoodList()),
        ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         theme: ThemeData(
             scaffoldBackgroundColor: Colors.white.withOpacity(0.9),
           textTheme: GoogleFonts.latoTextTheme(
