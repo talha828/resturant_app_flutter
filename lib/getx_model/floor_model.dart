@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 
 class FloorModel extends GetxController{
+  RxInt selectedFloor=0.obs;
+  RxInt selectedTable=50.obs;
   var floor=List<Floor>().obs;
   Map<String,dynamic> hotel={
-    "result":[
+    "results":[
       {
       "name":"My Floor",
        "table":[
@@ -13,7 +15,23 @@ class FloorModel extends GetxController{
          },
          {
            "name":"Table 2",
+           "status":"1",
+         },
+         {
+           "name":"Table 2",
+           "status":"1",
+         },
+         {
+           "name":"Table 1",
+           "status":"1",
+         },
+         {
+           "name":"Table 3",
            "status":"0",
+         },
+         {
+           "name":"Table 2",
+           "status":"1",
          },
          {
            "name":"Table 3",
@@ -21,7 +39,7 @@ class FloorModel extends GetxController{
          },
          {
            "name":"Table 4",
-           "status":"0",
+           "status":"2",
          },
        ]
     },
@@ -132,7 +150,13 @@ class FloorModel extends GetxController{
       },
     ],
   };
-  //TODO:// inshallah
+  @override
+  void onInit() {
+    super.onInit();
+    for(var i in hotel["results"]){
+      floor.add(Floor.fromJson(i));
+    }
+  }
 }
 
 class Floor{
@@ -140,17 +164,19 @@ class Floor{
   List<Table>table=[];
   Floor.fromJson(Map<String,dynamic>json){
     name=json['name'];
-    for (var i in json['table']){
-      table.add(Table.fromJson(i));
-    }
+   if(json["table"]!=null){
+     for (var i in json['table']){
+       table.add(Table.fromJson(i));
+     }
+   }
   }
 }
 
 class Table{
   String name;
-  int status;
+  String status;
   Table.fromJson(Map<String,dynamic>json){
     name=json['name'];
-    status=json['status'];
+    status=json['status'].toString();
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BottomButtonModel{
   String label;
-  Icon icon;
+  IconData icon;
   BottomButtonModel({this.label,this.icon});
 }
 class TopButtonModel{
